@@ -21,12 +21,9 @@ temp_app_path=`mktemp -d 2>/dev/null || mktemp -d -t 'temp_app_path'`
 
 function cleanup {
   echo 'Cleaning up.'
-  echo $(ps -ef | grep 'react-scripts' | grep -v grep | awk '{print $2}')
-  ps -ef | grep 'react-scripts' | grep -v grep | awk '{print $2}' | xargs kill -s 9
-  echo $(ps -ef | grep 'react-scripts' | grep -v grep | awk '{print $2}')
+  ps -ef | grep 'react-scripts' | grep -v grep | awk '{print $2}' | xargs kill -f
   cd "$root_path"
   # TODO: fix "Device or resource busy" and remove ``|| $CI`
-  sleep 2
   rm -rf "$temp_cli_path" $temp_app_path || $CI
 }
 
